@@ -12,6 +12,12 @@
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
     <link href="css/style.css" rel="stylesheet">
     
+
+    <script src="firebase-settings.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+
+
+
 </head>
 
 <body class="h-100">
@@ -45,13 +51,13 @@
         
                                 <form class="mt-5 mb-5 login-input" action="" method="post">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" name="email" id="email" class="form-control" placeholder="Email">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                                     </div>
                                     <a href="index.html"
-                                    <button class="btn login-form__btn submit w-100">Sign In</button>
+                                    button class="btn login-form__btn submit w-100" type="submit" id="saveData" name="signup_submit">Sign In</button>
                                     </a>
                                 </form>
                                 <p class="mt-5 login-form__footer">Dont have account? <a href="page-register.html" class="text-primary">Sign Up</a> now</p>
@@ -74,10 +80,89 @@
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
+
+
+    <!-- firebase auth -->
+    <script>
+     import { initializeApp } from "firebase/app";
+     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js" ;
+     import { getAnalytics } from "firebase/analytics";
+     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js" ;
+     import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+     import { getAuth, onAuthStateChanged } from "firebase/auth";
+     import { getDatabase, ref, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+
+    
+     const firebaseConfig = {
+     apiKey: "AIzaSyDefi2PwT0FZuQ8Xxi9Q6wJYFM8BfgPrk4",
+     authDomain: "sports-view-2c638.firebaseapp.com",
+     databaseURL: "https://sports-view-2c638-default-rtdb.firebaseio.com",
+     projectId: "sports-view-2c638",
+     storageBucket: "sports-view-2c638.appspot.com",
+     messagingSenderId: "1050558507060",
+     appId: "1:1050558507060:web:579a776fa3dd471b8d0261",
+     measurementId: "G-CXSN7J9V9J"
+     };
+    
+       // Initialize Firebase
+     const app = initializeApp(firebaseConfig);
+     const analytics = getAnalytics(app);
+     const database = getDatabase(app);
+
+
+    const auth = getAuth();
+       signInWithEmailAndPassword(auth, email, password)
+       .then((userCredential) => {
+
+    const user = userCredential.user;
+    set(ref(database, 'users/' + user.uid), {
+            name: name,
+            email: email
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+    
+  });
+    },
+
+  login.addEventListener('click',(e) =>{
+
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+
+
+    signInUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+
+     const user = userCredential.user;
+    
+     const dt = new date();
+      update(ref(database, 'users/' + user.uid), {
+        last_login: dt,
+
+    })
+
+    alert('You are logged in!');
+
+    } )
+
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+        
+        alert(errorMessage);
+    });
+
+    }
+
+ 
+    </script>
+       
+
+
+
 </body>
 </html>
-
-
-
 
 
