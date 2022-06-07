@@ -4,15 +4,17 @@ import 'package:mobile_new/commons/text_style.dart' as utils;
 import 'package:mobile_new/commons/app_constants.dart';
 import 'package:mobile_new/screens/SignUp.dart';
 import 'package:mobile_new/screens/SignUp.dart';
+import 'package:mobile_new/screens/pwdreset.dart';
 
  
 class EmailPwdSignInScreen extends StatefulWidget {
    final Function _fetchEmailPwdSignInData;
-   final Function _getStarted; 
-   final Function _onEmailPwdSignInBackPress;
+   final Function _goToEmailPwdSignUp; 
+   //final Function _goToPasswordResetScreen;
+    
    String buttonText;
 
-  EmailPwdSignInScreen(this._fetchEmailPwdSignInData, this._getStarted, this._onEmailPwdSignInBackPress, this.buttonText);
+  EmailPwdSignInScreen(this._fetchEmailPwdSignInData, this._goToEmailPwdSignUp, this.buttonText);
 
   @override
   EmailPwdSignInScreenState createState() => EmailPwdSignInScreenState();
@@ -52,7 +54,7 @@ class EmailPwdSignInScreenState extends State<EmailPwdSignInScreen> {
     return Scaffold(
       body: WillPopScope(
           child: signInBody(),
-          onWillPop: widget._onEmailPwdSignInBackPress,
+          //onWillPop: widget._onEmailPwdSignInBackPress,
         ),
     );
   }
@@ -125,7 +127,12 @@ class EmailPwdSignInScreenState extends State<EmailPwdSignInScreen> {
           Row(
             mainAxisAlignment:MainAxisAlignment.center,
             children: [
-              TextButton(child: Text('Forgot Password?'), onPressed:()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ResetScreen())),)
+              TextButton(child: Text('Forgot Password?'), 
+              // onPressed: () {
+              //             widget._goToPasswordResetScreen();
+                          
+              //           },
+              onPressed:()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ResetScreen())),)
             ]
           ),
 
@@ -163,6 +170,10 @@ class EmailPwdSignInScreenState extends State<EmailPwdSignInScreen> {
                           'Create Account',
                           style: TextStyle(fontSize: 20),
                         ),
+                         onPressed: () {
+                          widget._goToEmailPwdSignUp();
+                          //signup screen
+                        },
                         // onPressed: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EmailPwdSignUpScreen())),
                         )
                                         
@@ -177,8 +188,7 @@ class EmailPwdSignInScreenState extends State<EmailPwdSignInScreen> {
 
 }
 
-ResetScreen() {
-}
+ 
 
  
 

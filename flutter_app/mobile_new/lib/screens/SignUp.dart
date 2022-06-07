@@ -3,6 +3,8 @@ import 'package:mobile_new/commons/helpers.dart';
 import 'package:mobile_new/commons/text_style.dart' as utils;
 import 'package:mobile_new/commons/app_constants.dart';
 
+import 'email_pwd_signin.dart';
+
  
 class EmailPwdSignUpScreen extends StatefulWidget {
    final Function _fetchEmailPwdSignUpData;
@@ -148,19 +150,7 @@ class EmailPwdSignUpScreenState extends State<EmailPwdSignUpScreen> {
                 style: TextStyle(color: Colors.blue, fontSize: 15),
               ),
             ),
-            
-
-
-// route to reset password screen/////////////////////////
-
-          Row(
-            mainAxisAlignment:MainAxisAlignment.center,
-            children: [
-              TextButton(child: Text('Forgot Password?'), onPressed:()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ResetScreen())),)
-            ]
-          ),
-
-            
+         
              
             Container(
               height: 40,
@@ -207,10 +197,7 @@ class EmailPwdSignUpScreenState extends State<EmailPwdSignUpScreen> {
       ),
     );}
 }
-
-ResetScreen() {
-}
-
+ 
  
 
 

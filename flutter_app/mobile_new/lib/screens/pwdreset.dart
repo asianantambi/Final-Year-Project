@@ -1,4 +1,4 @@
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +10,7 @@ import 'package:mobile_new/screens/email_pwd_signin.dart';
 
 
 class ResetScreen extends StatefulWidget {
-  final Function _fetchsendPwdResetEmail;
-  final Function _goToEmailPwdSignIn; 
-  String buttonText;
-
-  ResetScreen(this._fetchsendPwdResetEmail, this._goToEmailPwdSignIn, this.buttonText);
+  ResetScreen();
   @override
   ResetScreenState createState() => ResetScreenState();
 }
@@ -23,11 +19,11 @@ class ResetScreen extends StatefulWidget {
 ////////////////////////new//////////////////
 
 class ResetScreenState extends State<ResetScreen> {
-  final auth = FirebaseAuth.instanceFor;
+  final auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   String _email;
-  final auth = FirebaseAuth.instanceFor;
+  final FirebaseAuth firebaseAuth  = FirebaseAuth.instance;
 
   
   
@@ -38,21 +34,6 @@ class ResetScreenState extends State<ResetScreen> {
     //     });
      
   }
-
-  void _submitData() {
-    if (_emailController.text == "" ) {
-      return;
-    }
-    // final enteredTitle = _genderController.text;
-     setState(() {
-        widget.buttonText = "Loading...";
-        });
-
-    widget._fetchsendPwdResetEmail(_emailController.text);
-
-  }
-
-////////////////////end//////////////////////////
 
 
 
@@ -87,7 +68,7 @@ class ResetScreenState extends State<ResetScreen> {
                 RaisedButton(
                   child: Text('Send Request'),
                   onPressed: () {
-                    auth.sendPassworddResetEmail(email: _email);
+                    firebaseAuth.sendPasswordResetEmail(email: _email);
                     Navigator.of(context).pop();
                   },
                   color: Theme.of(context).accentColor,

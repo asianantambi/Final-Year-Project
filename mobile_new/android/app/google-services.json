@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1050558507060",
+    "firebase_url": "https://sports-view-2c638-default-rtdb.firebaseio.com",
+    "project_id": "sports-view-2c638",
+    "storage_bucket": "sports-view-2c638.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050558507060:android:8decf29a5fb90f818d0261",
+        "android_client_info": {
+          "package_name": "com.example.mobile_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050558507060-ichv2vmdg4bjjonacooa0ub7roe6i61l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo2HlcRQ_MFXIbiZ1LbU4Dy_6LBtP2dTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050558507060-ichv2vmdg4bjjonacooa0ub7roe6i61l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
