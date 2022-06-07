@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile_new/screens/SignUp.dart';
  
 import 'package:mobile_new/screens/email_pwd_signin.dart';
+import 'package:mobile_new/screens/pwdreset.dart';
 import 'package:mobile_new/ui/pages/hotel_search/home_page.dart';
 import 'bloc/hotel_bloc.dart';
 // import 'data_access/chatDB.dart';
@@ -75,8 +76,7 @@ class MainControllerState extends State<MainController> {
       setState(() {
         userPage = EmailPwdSignInScreen(
           _fetchEmailPwdSignInData,
-          null,
-          null,
+          _goToEmailPwdSignUp,
           "Login"
     );
       });
@@ -93,6 +93,7 @@ class MainControllerState extends State<MainController> {
       });
 
   }
+ 
 
    void _fetchEmailPwdSignUpData(String email, String password, String name) async {
       _signUpData.name = name;
