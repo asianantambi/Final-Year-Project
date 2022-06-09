@@ -12,7 +12,7 @@ class ReviewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Image.network(review.userImage),
+        leading: Image(image: AssetImage(review.userImage), ) ,//Image.network(review.userImage),
         title: Text(review.message),
         subtitle: Text(review.user),
         trailing: Text(review.rate.toString()),

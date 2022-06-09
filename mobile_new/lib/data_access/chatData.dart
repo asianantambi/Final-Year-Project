@@ -310,6 +310,7 @@ class ChatData {
 // }
 
   static Future<User> signInWithEmailAndPassword(SignUpData signUpData) async {
+    await Firebase.initializeApp();
     final FirebaseAuth _auth = FirebaseAuth.instance;
     try {
       final User user = (await _auth.signInWithEmailAndPassword(
@@ -387,8 +388,7 @@ class ChatData {
           MaterialPageRoute(
               builder: (context) => ChangeNotifierProvider(
                     create: (_) => HotelBloc()..retrieveHotels(),
-                    child: HotelSearchPage(),
-                  )));
+                    child: HotelSearchPage(logInUser.displayName,null))));
       //ChatWelcomeScreen(currentUserId: logInUser.uid, signUpData: null,)));
     } else {
       //return ChatData.widgetLoginScreen(context);
