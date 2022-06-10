@@ -26,7 +26,10 @@ class HotelItem extends StatelessWidget {
                 padding: const EdgeInsets.all(32.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(hotel.imageUrl),
+                  child: Image(
+                      image: AssetImage(hotel.imageUrl),
+                      
+                    ) , // Image.network(hotel.imageUrl),
                 ),
               ),
             ),

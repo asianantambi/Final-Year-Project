@@ -66,7 +66,7 @@ class RecipeBodyBackground extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage(hotel.imageUrl), fit: BoxFit.cover),
+                image: AssetImage(hotel.imageUrl), fit: BoxFit.cover), // NetworkImage(hotel.imageUrl), fit: BoxFit.cover),
           ),
           child: Container(
             width: double.infinity,
@@ -108,7 +108,7 @@ class RecipeBody extends StatelessWidget {
               child: Container(
                 // padding: EdgeInsets.all(24),
                 child: DefaultTabController(
-                  length: 3,
+                  length: 2,
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -117,7 +117,7 @@ class RecipeBody extends StatelessWidget {
                           child: TabBarView(
                             children: [
                               HotelInformationTab(hotel: hotel),
-                              // HotelRoomTab(rooms: hotel.rooms),
+                              //HotelRoomTab(rooms: hotel.rooms),
                               HotelReviewTab(reviews: hotel.reviews),
                             ],
                           ),
@@ -136,12 +136,12 @@ class RecipeBody extends StatelessWidget {
                               style: TextStyle(color: Colors.black),
                             ),
                           ),
-                          Tab(
-                            child: Text(
-                              'ROOMS',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
+                          // Tab(
+                          //   child: Text(
+                          //     'ROOMS',
+                          //     style: TextStyle(color: Colors.black),
+                          //   ),
+                          // ),
                           Tab(
                             child: Text(
                               'REVIEW',

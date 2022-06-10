@@ -86,15 +86,16 @@ class MainControllerState extends State<MainController> {
 
   void _fetchEmailPwdSignUpData(
       String email, String password, String name) async {
-    _signUpData.name = name;
-    _signUpData.email = email;
-    _signUpData.password = password;
+       
+          _signUpData.name = name;
+          _signUpData.email = email;
+          _signUpData.password = password;
 
-    _registerWithEmail(_signUpData);
+          _registerWithEmail(_signUpData);
 
     ///UNCOMMNENT THIS DIRECT TO TEST NAVIGATION TO THE HOTELS///
 
-    // _goToTabControllerHome(_signUpData);
+    // _goToHotelHomeScreen(_signUpData);
   }
 
   //  void init(String applicationName, BuildContext context) {
@@ -124,7 +125,7 @@ class MainControllerState extends State<MainController> {
       _signUpData.name = logInUser.displayName;
       _signUpData.email = logInUser.email;
 
-      _goToTabControllerHome(_signUpData);
+      _goToHotelHomeScreen(_signUpData);
     } else {
       _goToEmailPwdSignIn();
     }
@@ -137,7 +138,7 @@ class MainControllerState extends State<MainController> {
   }
 
   Future<User> _registerWithEmail(SignUpData userData) async {
-    try {
+     try {
       User registeredUser =
           await ChatData.registerWithEmailAndPassword(userData);
 
@@ -145,7 +146,7 @@ class MainControllerState extends State<MainController> {
         print(registeredUser.uid);
         print(registeredUser.email);
 
-        _goToTabControllerHome(_signUpData);
+        _goToHotelHomeScreen(_signUpData);
         print('sign in signin');
         //ChatData.checkUserLogin(context);
       } else {
@@ -157,20 +158,22 @@ class MainControllerState extends State<MainController> {
       }
       return null;
     } catch (ex) {
+      _goToEmailPwdSignUp();
       Fluttertoast.showToast(msg: ex.toString());
-      print(ex.toString());
+      print("ERROR:" + ex.toString());
     }
   }
 
   Future<User> _signInWithEmailAndPassword(SignUpData userData) async {
+     try {
     User registeredUser = await ChatData.signInWithEmailAndPassword(userData);
 
     if (registeredUser != null) {
-      print(registeredUser.uid);
-      print(registeredUser.email);
-
-      //  print(password);
       try {
+        print(registeredUser);
+      // print(registeredUser.uid);
+      // print(registeredUser.email);
+ 
         await FirebaseFirestore.instance
             .collection('users')
             .doc(registeredUser.uid)
@@ -180,24 +183,33 @@ class MainControllerState extends State<MainController> {
             _signUpData.name = documentSnapshot.get('name');
             _signUpData.uID = documentSnapshot.get('userId');
 
-            print(_signUpData.name);
-            print(_signUpData.uID);
+            // print(_signUpData.name);
+            // print(_signUpData.uID);
           } else {
             print("Mising user data");
           }
         });
-      } catch (ex) {}
+    } catch (ex) {
+      _goToEmailPwdSignIn();
+      Fluttertoast.showToast(msg: ex.toString());
+      print("ERROR:" + ex.toString());
+    }
 
-      _goToTabControllerHome(_signUpData);
+      _goToHotelHomeScreen(_signUpData);
 
       print('sign in signin');
     } else {
       _goToEmailPwdSignIn();
-
       Fluttertoast.showToast(msg: "Wrong Username Or Password");
     }
 
     return null;
+
+     } catch (ex) {
+      _goToEmailPwdSignIn();
+      Fluttertoast.showToast(msg: ex.toString());
+      print("ERROR:" + ex.toString());
+    }
   }
 
   // Future<bool> _onNameStepBackPress() async {
@@ -206,11 +218,11 @@ class MainControllerState extends State<MainController> {
   // }
 
 // CALL THIS TO ROUTE TO HOTELS SCREEN/////////////////////////
-  void _goToTabControllerHome(SignUpData signUpData) async {
+  void _goToHotelHomeScreen(SignUpData signUpData) async {
     setState(() {
       userPage = ChangeNotifierProvider(
         create: (_) => HotelBloc()..retrieveHotels(),
-        child: HotelSearchPage(),
+        child: HotelSearchPage(signUpData.name, _logout),
       );
       //     TabControllerHome(
       //   signUpData,
@@ -232,7 +244,7 @@ class MainControllerState extends State<MainController> {
     _signInWithEmailAndPassword(_signUpData);
 
 //UNCOMMENT THIS TO TEST NAVIGATION TO THE HOTELS DIRECT//
-    //_goToTabControllerHome(_signUpData);
+    //_goToHotelHomeScreen(_signUpData);
   }
 
   void _logout(BuildContext context) async {
